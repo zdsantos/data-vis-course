@@ -34,16 +34,9 @@
         // Update
         d3.select("body").selectAll("div.h-bar")
             .data(data) 
-                .style("width", function (d) { 
-                   // Escreva o seu código aqui
-                })
-                .style("background-color", function(d){
-                    // Escreva o seu código aqui
-                })
-                .select("span") 
-                    .text(function (d) {
-                        // Escreva o seu código aqui
-                    });
+                .style("width", d => d.width*7+"px")
+                .style("background-color", d => colorScale(d.color))
+                .select("span").text(d => data.indexOf(d));
     }
     render(data);
 </script>

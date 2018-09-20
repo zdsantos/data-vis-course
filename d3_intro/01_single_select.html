@@ -9,7 +9,16 @@
 <body>
 
 <script type="text/javascript">
-    // Seu código d3 será escrito aqui
+    d3.select("body")
+        .append("div")
+        .style("border", "1px black solid")
+        .style("background-color", "pink")
+        .style("font-size", "24px")
+        .style("padding", "5px")
+        .attr("id", "newDiv")
+
+    d3.select("div#newDiv").append("p").text("Hello world")
+    
 </script>
 
 </body>

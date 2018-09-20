@@ -17,8 +17,8 @@
             .enter()
                 .append("div")
                     .attr("class", "h-bar")
-                    .style("width", "30px")
-                .append("span");
+                    .style("width", d => d*10+"px")
+                .append("span").text(d => d).style("color", "white").style("font-weight", "bold");
     }
     render(data);
 </script>

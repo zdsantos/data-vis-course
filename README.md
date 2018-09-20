@@ -13,4 +13,8 @@
 
 ---
 
+## Aula do dia 17/09/2018
+
+[01_scatterplot](d3_update/01_scatterplot.html)<br>
+
 Para saber mais sobre a sintaxe markdown, veja [este guia](https://guides.github.com/features/mastering-markdown/).
