@@ -9,16 +9,23 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="js/dc.min.js"></script>
 
+    <style>
+        .dc-chart { font-size: 12px; }
+        .dc-table-group { padding-left: 10px; font-size: 14px; font-weight: bold; }
+        .dc-table-column { padding-left: 10px; font-size: 12px; font-weight: normal; }
+     </style>
 </head>
 <body>
-     <div>
-         <h1>Filmes</h1>
+     <div class="content">
+        <h1>Filmes</h1>
         <div id="chart"></div>
-        <div id="chartCat"></div>
+        <div id="chartGenre"></div>
+        <div id="table" style="margin: 25px 0 50px 25px"></div>
     </div>
     <script type="text/javascript">
         let barChart = dc.barChart('#chart');
-        let catChart = dc.barChart('#chartCat');
+        let genreChart = dc.barChart('#chartGenre');
+        let table = dc.dataTable('#table');
 
         d3.json("data/movies.json").then(function(data){
 
@@ -62,7 +69,7 @@
                 .brushOn(true)
                 .gap(15);
                 
-            catChart
+            genreChart
                 .width(620)
                 .height(400)
                 .x(d3.scaleBand())
@@ -75,6 +82,18 @@
                 .xAxisLabel("Gêneros")
                 .brushOn(true)
                 .gap(15);
+
+            table
+                .dimension(genreDim)
+                .group(function (d) {
+                    return d.Genre;
+                })
+                .size(Infinity)
+                .columns(['Film', 'Year', 'Genre', 'Worldwide_Gross_M'])
+                .sortBy(function (d) {
+                    return d.Film;
+                })
+                .order(d3.ascending);
 
             dc.renderAll();
         });
