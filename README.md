@@ -21,6 +21,16 @@
 
 ## Aula do dia 17/09/2018
 
-[01_scatterplot](d3_update/01_scatterplot.html)<br>
+[01_scatterplot.html](d3_update/01_scatterplot.html)<br>
+
+---
+
+## Aula do dia 24/09/2018
+
+[acoes.html](d3_crossfilter/acoes.html)<br>
+[movies_d3_dc.html](d3_crossfilter/movies_d3_dc.html) (não terminanado)<br>
+
+---
 
 Para saber mais sobre a sintaxe markdown, veja [este guia](https://guides.github.com/features/mastering-markdown/).
+

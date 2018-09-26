@@ -11,57 +11,73 @@
 
 </head>
 <body>
-     <div><h1>Filmes</h1>
+     <div>
+         <h1>Filmes</h1>
         <div id="chart"></div>
+        <div id="chartCat"></div>
     </div>
     <script type="text/javascript">
         let barChart = dc.barChart('#chart');
+        let catChart = dc.barChart('#chartCat');
 
-        d3.csv("data/movies.json").then(function(data){
-            // formatando nossos dados
-            let parseDate = d3.timeParse("%Y/%m/%d");
-
-            let baseLine = data[0];
-
-            let calcVariation = function(value, base) {
-                return (value-base)*100/base;
-            }
-
-            data.forEach(function(d){
-                d.date = parseDate(d.date);
-                d.tesla = +d.tesla;
-                d.facebook = +d.facebook;
-                d.teslaP = +calcVariation(d.tesla, baseLine.tesla)
-                d.facebookP = +calcVariation(d.facebook, baseLine.facebook)
-            });
+        d3.json("data/movies.json").then(function(data){
 
             //criando um crossfilter
             let facts = crossfilter(data);
 
             let dateDim = facts.dimension(function(d){
-                return d.Year;
+                return +d.Year;
             });
 
             let grossByYearGroup = dateDim.group().reduceSum(function(d){
-                // return calcVariation(d.tesla, baseLine.tesla);
-                return d.Worldwide_Gross_M
+                return d.Worldwide_Gross_M;
             });
 
             let xScale = d3.scaleLinear()
-                           .domain([dateDim.bottom(1)[0].Year, dateDim.top(1)[0].Year]);
+                .domain([dateDim.bottom(1)[0].Year, dateDim.top(1)[0].Year]);
 
-            barChart.width(800)
+            let genreDim = facts.dimension(function(d){
+                return d.Genre;
+            });
+
+            let grossByGenreGroup = genreDim.group().reduceSum(function(d){
+                return d.Worldwide_Gross_M;
+            });
+
+            console.log(data);
+            console.log('top', dateDim.top(1)[0]);
+            console.log('bottom', dateDim.bottom(1)[0]);
+
+            barChart
+                .width(360)
                 .height(400)
+                .x(d3.scaleBand())
+                .xUnits(dc.units.ordinal)
                 .margins({top: 50, right: 50, bottom: 25, left: 40})
-                .dimension(dateDim)
-                .x(xScale)
-                .xUnits(d3.timeDays)
                 .renderHorizontalGridLines(true)
-                .group(grossByYearGroup, 'Gross')
-                .brushOn(false);
+                .dimension(dateDim)
+                .group(grossByYearGroup, 'Ano')
+                .yAxisLabel("Bilheterias")
+                .xAxisLabel("Ano")
+                .brushOn(true)
+                .gap(15);
+                
+            catChart
+                .width(620)
+                .height(400)
+                .x(d3.scaleBand())
+                .xUnits(dc.units.ordinal)
+                .margins({top: 50, right: 50, bottom: 25, left: 40})
+                .renderHorizontalGridLines(true)
+                .dimension(genreDim)
+                .group(grossByGenreGroup, 'Gênero')
+                .yAxisLabel("Bilheterias")
+                .xAxisLabel("Gêneros")
+                .brushOn(true)
+                .gap(15);
 
             dc.renderAll();
         });
-    </script>           
+    </script>
 </body>
 </html>
