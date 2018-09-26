@@ -86,9 +86,10 @@
             table
                 .dimension(genreDim)
                 .group(function (d) {
-                    return d.Genre;
+                    return d.Film;
                 })
                 .size(Infinity)
+                .showGroups(false)
                 .columns(['Film', 'Year', 'Genre', 'Worldwide_Gross_M'])
                 .sortBy(function (d) {
                     return d.Film;
