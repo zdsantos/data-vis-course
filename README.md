@@ -32,5 +32,20 @@
 
 ---
 
-Para saber mais sobre a sintaxe markdown, veja [este guia](https://guides.github.com/features/mastering-markdown/).
+---
 
+## Aula do dia 22/10/2018
+
+[usa.html](color_d3/usa.html)<br>
+[crimes.html](color_d3/crimes.html)<br>
+
+---
+
+## Aula do dia 31/10/2018
+
+[usa.html](d3_interactive/usa.html)<br>
+[earthquakes.html](d3_interactive/earthquakes.html)<br>
+
+---
+
+Usar ```python3 -m http.server```
